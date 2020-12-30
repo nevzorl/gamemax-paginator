@@ -1,0 +1,25 @@
+{
+  "name": "gamemax.paginator",
+  "version": "1.0.0",
+  "description": "💜 Plugin for easy creation and interaction with pages",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nevzorl/gamemax-paginator.git"
+  },
+  "keywords": [
+    "perssBest",
+    "paginator",
+    "discord-reactions-menu",
+    "custom-reactions-menu"
+  ],
+  "author": "perssBest",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/nevzorl/gamemax-paginator/issues"
+  },
+  "homepage": "https://github.com/nevzorl/gamemax-paginator#readme"
+}
