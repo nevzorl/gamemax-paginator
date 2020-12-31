@@ -5,7 +5,7 @@
 	<p></p>
 </div>
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 [![node.js](https://img.shields.io/badge/node.js-v14-brightgreen)](https://nodejs.org/)
 [![Star](https://img.shields.io/badge/-Give%20this%20repo%20a%20star!-yellow)](https://github.com/nevzorl/gamemax-paginator)
 [![Discord](https://img.shields.io/discord/732115887246671913?color=8697F6&label=Discord&logo=as&logoColor=%238697F6)](https://discord.gg/RPb2KXN)
@@ -52,8 +52,8 @@ new <object>.example()
 ## ❓ Example to use: 
 
 ```js
-const plugin = require("gamemax.paginator");
-const page = new plugin(message.author.id); // Collector filter.
+const { Pages } = require("gamemax.paginator");
+const page = new Pages(message.author.id); // Collector filter.
 
 page.add("Hello"); // You can also specify an array with text: page.add([ "Hello", "Hello 2", etc. ]);
 page.create(message.channel); // send message
@@ -64,10 +64,10 @@ page.create(message.channel); // send message
 You can customize the plugin by adding your own emoji, functions, and custom checks.
 ```js
 new plugin(message.author.id, [
-    { emoji: "📌", execute: (channel) => channel.send("This is custom reaction!"), rules: null, imports: [message.channel] },
-    { emoji: "", execute: (text) => console.log(text), rules: "1 > 0", imports: ["This text will be printed to the console."] }
+    { emoji: "📌", execute: (channel) => channel.send("This is custom reaction!"), imports: [message.channel] },
+    { emoji: "👀", execute: (text) => console.log(text), imports: ["This text will be printed to the console."] }
     /* etc.. */
-]);
+], 60000); // Collector running time in ms
 ```
 
 **And so, let's now tell you in detail what is responsible for what.**
@@ -76,9 +76,4 @@ new plugin(message.author.id, [
 
 * `execute` - The function that will execute when you click on your 'custom' reaction.
 
-* `rules` - Hmm.. what is it? These are the checks that will execute your functions. For example, if you do this: `1 > 0` then the function will be executed. If you do `0 > 1`, then the function will not be executed, because the check returns `false`. This is just an example, you can do your own checks, for example `!member` or `isNaN(1r)` and etc..
-
 * `imports` - Required parameters to run the function. They must be in an array or you will get an error. For example, in the `execute` parameter you want something to be displayed in the console. We indicate callback in `execute` example `text` and in the imports we include our text `["Hello bro"]`
-
-
-**❗️❗️ Attention. The custom functions are very sensitive. Therefore, if you do not want to specify anything in the parameter, use `<emoji / execute / rules / imports>: null` to avoid getting errors!**

@@ -1,6 +1,6 @@
 {
   "name": "gamemax.paginator",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "💜 Plugin for easy creation and interaction with pages",
   "main": "index.js",
   "scripts": {
