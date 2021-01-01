@@ -5,7 +5,7 @@
 	<p></p>
 </div>
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 [![node.js](https://img.shields.io/badge/node.js-v14-brightgreen)](https://nodejs.org/)
 [![Star](https://img.shields.io/badge/-Give%20this%20repo%20a%20star!-yellow)](https://github.com/nevzorl/gamemax-paginator)
 [![Discord](https://img.shields.io/discord/732115887246671913?color=8697F6&label=Discord&logo=as&logoColor=%238697F6)](https://discord.gg/RPb2KXN)
@@ -77,3 +77,19 @@ new plugin(message.author.id, [
 * `execute` - The function that will execute when you click on your 'custom' reaction.
 
 * `imports` - Required parameters to run the function. They must be in an array or you will get an error. For example, in the `execute` parameter you want something to be displayed in the console. We indicate callback in `execute` example `text` and in the imports we include our text `["Hello bro"]`
+
+
+## 🎉 Events
+You can control user actions using our events.
+```js
+let page = new Pages(message.author.id);
+
+page.on("update", (data) => {
+  console.log(data) // Returns an object with data (which page is currently, how many pages are there, etc.)
+  // do somethink..
+})
+```
+
+**Available events:**
+
+* `update` - Will return the object on page refresh

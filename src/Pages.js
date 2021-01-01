@@ -1,5 +1,8 @@
-class Pages {
+let EventEmitter = require('events');
+
+class Pages extends EventEmitter {
     constructor(userID = "", custom = [], timeout = 60000){
+        super();
         if(userID.length < 1) throw new Error("Specify the user ID for the collector filter.");
         this.custom = custom;
         this.userID = userID;
@@ -16,11 +19,17 @@ class Pages {
     update(page){
         this.selectPage = page || 0;
         this.message.edit(this.pages[page || 0]).catch(err => {});
+        this.emit("update", {
+            page: this.page || 0,
+            pages: this.pages.length - 1,
+            text: this.pages[page || 0],
+        })
     }
 
     async create(channel){
         const message = await channel.send(this.pages[0]).catch(err => {});
         this.message = message;
+        this.message.page = 0;
         this.collector = await this.createCollector(this.message);
         this.reactions = [ 
             { emoji: '⏪', execute: () => this.update(0) }, 
@@ -59,4 +68,4 @@ class Pages {
     }
 }
 
-module.exports = Pages;
+module.exports = Pages
