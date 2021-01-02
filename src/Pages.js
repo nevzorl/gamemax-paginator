@@ -20,7 +20,7 @@ class Pages extends EventEmitter {
         this.selectPage = page || 0;
         this.message.edit(this.pages[page || 0]).catch(err => {});
         this.emit("update", {
-            page: this.page || 0,
+            page: this.selectPage,
             pages: this.pages.length - 1,
             text: this.pages[page || 0],
         })
