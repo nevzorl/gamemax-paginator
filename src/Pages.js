@@ -50,7 +50,7 @@ class Pages extends EventEmitter {
         const collector = message.createReactionCollector((_, user) => user.id === this.userID, { time: this.timeout });
         collector.on("collect", async(r) => {
             for(let i = 0; i < this.reactions.length; i++) {
-                let { emoji, execute, imports, rules, } = this.reactions[i];
+                let { emoji, execute, imports, rules } = this.reactions[i];
                 if(rules ? (r.emoji.name == emoji) && (eval(rules)) : r.emoji.name == emoji) execute(...imports || []);
             }
             r.users.remove(this.userID).catch(() => {});
