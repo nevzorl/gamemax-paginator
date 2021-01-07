@@ -14,6 +14,7 @@ class Pages extends EventEmitter {
     add(page){
         if(typeof page == 'object') this.pages = this.pages.concat(page);
         else this.pages.push(page);
+        this.emit("add", page);
     }
 
     update(page){
@@ -27,21 +28,27 @@ class Pages extends EventEmitter {
     }
 
     async create(channel){
+        if(this.pages.length <= 0) throw new Error("Add at least one page for the module to work correctly.")
         const message = await channel.send(this.pages[0]).catch(err => {});
         this.message = message;
-        this.message.page = 0;
         this.collector = await this.createCollector(this.message);
         this.reactions = [ 
             { emoji: '⏪', execute: () => this.update(0) }, 
             { emoji: '⬅', execute: () => this.update(this.selectPage - 1), rules: "this.selectPage !== 0" }, 
-            { emoji: '⏸', execute: () => { this.message.reactions.removeAll().catch(err => {}); this.message.delete().catch(err => {}); this.collector.stop(); } }, 
+            { emoji: '⏸', execute: () => this.end(this.message, this.collector) }, 
         ];
         this.reactions = this.reactions.concat(this.custom, [
             { emoji: '➡', execute: () => this.update(this.selectPage + 1), rules: "this.selectPage !== this.pages.length - 1" }, 
             { emoji: '⏩', execute: () => this.update(this.pages.length - 1) }, 
         ]);
         await this.react(this.message);
+        this.emit("create", { message: this.message, collector: this.collector });
         return message;
+    }
+
+    end(m, c) {
+        m.reactions.removeAll().catch(err => {}); c.stop(); m.delete().catch(err => {});
+        this.emit("end", true);
     }
 
     // 

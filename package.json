@@ -1,6 +1,6 @@
 {
   "name": "gamemax.paginator",
-  "version": "1.0.3",
+  "version": "1.0.5",
   "description": "💜 Plugin for easy creation and interaction with pages",
   "main": "index.js",
   "scripts": {
@@ -17,7 +17,7 @@
     "custom-reactions-menu"
   ],
   "author": "perssBest",
-  "license": "ISC",
+  "license": "MIT",
   "dependencies": {
     "events": "^3.2.0"
   },

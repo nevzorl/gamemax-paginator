@@ -84,12 +84,15 @@ You can control user actions using our events.
 ```js
 let page = new Pages(message.author.id);
 
-page.on("update", (data) => {
-  console.log(data) // Returns an object with data (which page is currently, how many pages are there, etc.)
-  // do somethink..
-})
+page.on("create", (data) => console.log(data))
 ```
 
 **Available events:**
 
+* `create` - Returns an object with message and collector content
+
+* `add` - Returns a string (or writing). Fires when using the `<page>.add()` function
+
 * `update` - Will return the object on page refresh
+
+* `end` - Returns `true` if everything worked successfully
