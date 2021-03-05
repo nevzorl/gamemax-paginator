@@ -95,4 +95,6 @@ page.on("create", (data) => console.log(data))
 
 * `update` - Will return the object on page refresh
 
+* `select` - Returns an object containing the page you selected and its content.
+
 * `end` - Returns `true` if everything worked successfully

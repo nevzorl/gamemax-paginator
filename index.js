@@ -7,6 +7,8 @@ const init = (client, name) => {
             enumerable: false,
             configurable: false
     })
-}
+};
 
-module.exports = { init, Pages };
+const version = require("./package.json").version;
+
+module.exports = { init, Pages, version };

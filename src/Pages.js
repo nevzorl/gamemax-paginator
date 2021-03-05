@@ -9,6 +9,20 @@ class Pages extends EventEmitter {
         this.timeout = timeout;
         this.pages = [];
         this.selectPage = 0;
+
+        this.started = false;
+    }
+
+    select(pageNumber = 0){
+        if(this.started == true) throw new Error("This method can only be used before creating pages.")
+        if(this.pages.length <= 0) throw new Error("Add one or more pages to use this method.")
+        if(!this.pages[pageNumber - 1]) pageNumber = 0;
+            else pageNumber = pageNumber - 1;
+
+        this.emit("select", { selected: pageNumber, text: this.pages[pageNumber] });
+            
+        this.selectPage = pageNumber;
+            return true;
     }
 
     add(page){
@@ -28,8 +42,10 @@ class Pages extends EventEmitter {
     }
 
     async create(channel){
-        if(this.pages.length <= 0) throw new Error("Add at least one page for the module to work correctly.")
-        const message = await channel.send(this.pages[0]).catch(err => {});
+        if(this.pages.length <= 0) throw new Error("Add at least one page for the module to work correctly.");
+
+        this.started = true;
+        const message = await channel.send(this.pages[this.selectPage]).catch(err => {});
         this.message = message;
         this.collector = await this.createCollector(this.message);
         this.reactions = [ 
@@ -41,9 +57,11 @@ class Pages extends EventEmitter {
             { emoji: '➡', execute: () => this.update(this.selectPage + 1), rules: "this.selectPage !== this.pages.length - 1" }, 
             { emoji: '⏩', execute: () => this.update(this.pages.length - 1) }, 
         ]);
-        await this.react(this.message);
+
+        await this.react(this.message); 
+
         this.emit("create", { message: this.message, collector: this.collector });
-        return message;
+            return message;
     }
 
     end(m, c) {
